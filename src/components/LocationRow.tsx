@@ -1,71 +1,61 @@
-import { Ionicons } from '@expo/vector-icons';
-import { Pressable, StyleSheet, Text, View } from 'react-native';
-
-import { colors, fonts, radii, spacing } from '../theme';
-import type { Destination } from '../types';
+import React from 'react';
+import { StyleSheet, Text, TouchableOpacity, View } from 'react-native';
+import { FontAwesome5 } from '@expo/vector-icons';
+import { theme } from '../theme/theme';
 
 interface LocationRowProps {
-  destination: Destination;
-  onPress: (destination: Destination) => void;
-  showDivider?: boolean;
+  title: string;
+  address: string;
+  icon: string;
+  onPress: () => void;
 }
 
-export function LocationRow({ destination, onPress, showDivider = true }: LocationRowProps) {
+export const LocationRow: React.FC<LocationRowProps> = ({
+  title,
+  address,
+  icon,
+  onPress,
+}) => {
   return (
-    <Pressable
-      accessibilityRole="button"
-      onPress={() => onPress(destination)}
-      style={({ pressed }) => [styles.row, pressed && styles.pressed]}
-    >
-      <View style={styles.iconWrap}>
-        <Ionicons color={colors.primary} name="time-outline" size={18} />
+    <TouchableOpacity style={styles.container} onPress={onPress} activeOpacity={0.7}>
+      <View style={styles.iconContainer}>
+        <FontAwesome5 name={icon as any} size={18} color={theme.colors.textSecondary} />
       </View>
-      <View style={[styles.copy, showDivider && styles.divider]}>
-        <Text style={styles.title}>{destination.title}</Text>
-        <Text numberOfLines={1} style={styles.address}>
-          {destination.address}
-        </Text>
+      <View style={styles.textContainer}>
+        <Text style={styles.title}>{title}</Text>
+        <Text style={styles.address}>{address}</Text>
       </View>
-      <Ionicons color={colors.textMuted} name="chevron-forward" size={18} />
-    </Pressable>
+    </TouchableOpacity>
   );
-}
+};
 
 const styles = StyleSheet.create({
-  row: {
-    alignItems: 'center',
+  container: {
     flexDirection: 'row',
-    gap: spacing.md,
-    minHeight: 64,
-  },
-  pressed: {
-    opacity: 0.72,
-  },
-  iconWrap: {
     alignItems: 'center',
-    backgroundColor: colors.surface,
-    borderRadius: radii.sm,
-    height: 40,
-    justifyContent: 'center',
+    paddingVertical: theme.spacing.md,
+    borderBottomWidth: 1,
+    borderBottomColor: theme.colors.surface,
+  },
+  iconContainer: {
     width: 40,
+    height: 40,
+    borderRadius: 20,
+    backgroundColor: theme.colors.surface,
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginRight: theme.spacing.md,
   },
-  copy: {
+  textContainer: {
     flex: 1,
-    paddingVertical: spacing.md,
-  },
-  divider: {
-    borderBottomColor: colors.border,
-    borderBottomWidth: StyleSheet.hairlineWidth,
   },
   title: {
-    color: colors.text,
-    fontFamily: fonts.semibold,
-    fontSize: 15,
+    ...theme.typography.bodyLarge,
+    color: theme.colors.text,
+    marginBottom: 4,
   },
   address: {
-    color: colors.textSecondary,
-    fontFamily: fonts.regular,
-    fontSize: 13,
-    marginTop: 2,
+    ...theme.typography.bodyMedium,
+    color: theme.colors.textSecondary,
   },
 });
