@@ -7,6 +7,10 @@ import { theme } from '../theme/theme';
 import { Home } from '../screens/Home';
 import { Activity, Wallet, Profile } from '../screens/DummyScreens';
 
+import { RideRequest } from '../screens/RideRequest';
+import { VehicleSelection } from '../screens/VehicleSelection';
+import { TripTracking } from '../screens/TripTracking';
+
 const Tab = createBottomTabNavigator();
 const Stack = createNativeStackNavigator();
 
@@ -51,7 +55,9 @@ export function AppNavigator() {
   return (
     <Stack.Navigator screenOptions={{ headerShown: false }}>
       <Stack.Screen name="MainTabs" component={BottomTabs} />
-      {/* Other screens like RideRequest, VehicleSelection will go here */}
+      <Stack.Screen name="RideRequest" component={RideRequest} />
+      <Stack.Screen name="VehicleSelection" component={VehicleSelection} />
+      <Stack.Screen name="TripTracking" component={TripTracking} />
     </Stack.Navigator>
   );
 }
