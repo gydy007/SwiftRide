@@ -1,0 +1,20 @@
+@import "tailwindcss";
+
+button,
+input {
+  font: inherit;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+::selection {
+  color: #ffffff;
+  background: #1c6b53;
+}

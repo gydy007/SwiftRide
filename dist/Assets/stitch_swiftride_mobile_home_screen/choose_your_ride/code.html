@@ -1,0 +1,363 @@
+<!DOCTYPE html>
+
+<html lang="en"><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" name="viewport"/><meta content="mobile_stack" name="shell-type"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/><style>@layer base{html,body{width:100vw;margin:0;padding:0;}body{overscroll-behavior:none;}.pb-safe{padding-bottom:env(safe-area-inset-bottom,0px);}.pt-safe{padding-top:env(safe-area-inset-top,0px);}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config = { darkMode: "class", theme: { extend: { colors: { "on-secondary": "#ffffff", "on-tertiary": "#ffffff", "surface-container": "#edeef2", "surface-container-high": "#e7e8ec", "surface-container-low": "#f2f3f7", "tertiary-fixed": "#e1e1f3", "on-tertiary-container": "#c6c6d7", "surface-tint": "#573ceb", "surface-dim": "#d9dade", "outline": "#787587", "background": "#f8f9fd", "tertiary": "#3a3b49", "outline-variant": "#c8c4d8", "tertiary-fixed-dim": "#c5c5d6", "surface-container-highest": "#e1e2e6", "tertiary-container": "#515260", "on-background": "#191c1f", "inverse-on-surface": "#eff1f5", "secondary": "#006b5c", "on-secondary-fixed-variant": "#005045", "primary": "#3300c0", "primary-fixed-dim": "#c6bfff", "on-primary-fixed-variant": "#3e13d4", "on-surface-variant": "#474556", "on-primary-container": "#c7c0ff", "surface-variant": "#e1e2e6", "on-error-container": "#93000a", "inverse-primary": "#c6bfff", "surface": "#f8f9fd", "primary-fixed": "#e4dfff", "surface-bright": "#f8f9fd", "on-secondary-fixed": "#00201b", "on-surface": "#191c1f", "secondary-fixed-dim": "#41ddc2", "on-primary-fixed": "#170066", "primary-container": "#4b2ce0", "on-tertiary-fixed-variant": "#444654", "error": "#ba1a1a", "on-primary": "#ffffff", "on-error": "#ffffff", "on-secondary-container": "#007262", "secondary-container": "#65fade", "inverse-surface": "#2e3134", "on-tertiary-fixed": "#191b27", "error-container": "ffdad6", "secondary-fixed": "#65fade", "surface-container-lowest": "#ffffff" }, borderRadius: { "DEFAULT": "0.25rem", "lg": "0.5rem", "xl": "0.75rem", "full": "9999px" }, spacing: { "gutter": "0.75rem", "space-xs": "0.25rem", "margin": "1rem", "space-xl": "2rem", "space-sm": "0.5rem", "space-lg": "1.5rem", "space-md": "1rem" }, fontFamily: { "label-md": ["Inter"], "body-sm": ["Inter"], "title-md": ["Inter"], "headline-xl": ["Inter"], "body-md": ["Inter"], "label-sm": ["Inter"], "headline-md": ["Inter"], "label-lg": ["Inter"], "body-lg": ["Inter"], "title-lg": ["Inter"], "headline-lg": ["Inter"] }, fontSize: { "label-md": ["12px", { "lineHeight": "16px", "fontWeight": "500" }], "body-sm": ["12px", { "lineHeight": "16px", "fontWeight": "400" }], "title-md": ["16px", { "lineHeight": "22px", "fontWeight": "600" }], "headline-xl": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.02em", "fontWeight": "700" }], "body-md": ["14px", { "lineHeight": "20px", "fontWeight": "400" }], "label-sm": ["10px", { "lineHeight": "12px", "letterSpacing": "0.04em", "fontWeight": "600" }], "headline-md": ["20px", { "lineHeight": "28px", "letterSpacing": "-0.01em", "fontWeight": "700" }], "label-lg": ["14px", { "lineHeight": "18px", "letterSpacing": "0.01em", "fontWeight": "600" }], "body-lg": ["16px", { "lineHeight": "24px", "fontWeight": "400" }], "title-lg": ["18px", { "lineHeight": "24px", "fontWeight": "600" }], "headline-lg": ["24px", { "lineHeight": "32px", "letterSpacing": "-0.015em", "fontWeight": "700" }] } } } };</script><style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head><body class="bg-surface font-body-md text-on-surface flex flex-col min-h-screen"><header class="fixed top-0 w-full z-50 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] pt-safe"><div class="h-16 px-margin grid grid-cols-[44px_1fr_44px] items-center"><div class="flex items-center gap-space-xs"><button aria-label="Go Back" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-transform" onclick="history.back()" type="button"><span class="material-symbols-outlined text-[24px]">arrow_back</span></button><img alt="Brand logo. - Primary color: #4b2ce0
+- Font: inter
+- Mode: light
+- Roundness: rounded-md
+" class="h-8 w-auto object-contain hidden" src="https://lh3.googleusercontent.com/aida/AEtjO1Xc4yABzgeoDXZm33QQtTPnLwq9V85N4WUqubmPgRuWyYBzIBf-doPQjO_96TW_y-wbVgLpBLENidPAFz1MhhQKMGsilyqOmbjVHkL9IzYA233Wbdjdc4G2x4JuYG_9n69rd4uyf4Ol1Rru9Th-WppfHduSv5MzPHz8UCAhyqggGdQnoMQMsWRH0vc2zz5ccsuiskodZzahDbRMQBxmQco8ApiaTLzf1GdtNZ1C_tslJfloZ4hCEJn4MDsD"/></div><div class="flex flex-col items-center text-center px-space-xs"><span class="font-label-sm text-label-sm text-on-surface-variant uppercase tracking-wider">SwiftRide</span><h1 class="font-title-md text-title-md text-on-surface truncate">Select Ride</h1></div><div class="flex items-center justify-end gap-space-xs"><button aria-label="Close Flow" class="w-11 h-11 flex items-center justify-center rounded-full text-on-surface hover:bg-surface-container active:scale-95 transition-transform" type="button"><span class="material-symbols-outlined text-[24px]">close</span></button><div class="w-8 h-8 rounded-full bg-primary hidden items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></div></header><main class="flex-1 flex flex-col relative w-full pt-16 bg-surface"><div class="flex flex-col w-full px-margin pb-safe space-y-space-md">
+<!-- Spec / Dev micro-annotations bar (Dismissible/Delightful UX metadata) -->
+<div class="flex items-center justify-between gap-space-xs overflow-x-auto py-space-xs no-scrollbar">
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm shrink-0">
+<span class="w-1.5 h-1.5 rounded-full bg-secondary animate-pulse"></span>
+      Real-time fare calculation
+    </div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm shrink-0">
+<span class="material-symbols-outlined text-[12px] text-primary-container">sync_alt</span>
+      Auto-updates CTA on selection
+    </div>
+<div class="flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm shrink-0">
+<span class="material-symbols-outlined text-[12px] text-outline">swipe_vertical</span>
+      Scrollable list
+    </div>
+</div>
+<!-- ROUTE SUMMARY CARD -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-[0_4px_20px_-2px_rgba(75,44,224,0.06),0_2px_8px_rgba(0,0,0,0.04)] relative">
+<div class="flex items-center justify-between gap-space-sm">
+<!-- Visual Pin Route & Addresses -->
+<div class="flex items-start gap-3 min-w-0 flex-1">
+<!-- Connecting Line graphic -->
+<div class="flex flex-col items-center justify-between self-stretch py-1 shrink-0">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary shadow-[0_0_0_2px_rgba(101,250,222,0.4)]"></span>
+<div class="w-[2px] flex-1 my-1 bg-gradient-to-b from-secondary via-outline-variant to-primary-container border-dashed"></div>
+<span class="w-2.5 h-2.5 rounded-sm bg-primary-container shadow-[0_0_0_2px_rgba(75,44,224,0.2)]"></span>
+</div>
+<!-- Address Text Stack -->
+<div class="flex flex-col justify-between gap-2.5 min-w-0 flex-1">
+<div class="min-w-0">
+<p class="font-title-md text-title-md text-on-surface truncate leading-tight">742 Evergreen Terrace</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Pickup point</p>
+</div>
+<div class="min-w-0">
+<p class="font-title-md text-title-md text-on-surface truncate leading-tight">City Center Mall, 88 Harbor St</p>
+<p class="font-label-sm text-label-sm text-on-surface-variant">Drop-off point</p>
+</div>
+</div>
+</div>
+<!-- Route distance & ETA stat box -->
+<div class="flex flex-col items-end justify-between pl-space-sm shrink-0">
+<button aria-label="Edit route" class="p-1.5 rounded-full text-on-surface-variant hover:bg-surface-container active:scale-95 transition-transform mb-1" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+</button>
+<div class="text-right">
+<span class="font-label-lg text-label-lg text-on-surface">12.4 km</span>
+<p class="font-label-md text-label-md text-secondary font-semibold">22 min</p>
+</div>
+</div>
+</div>
+</div>
+<!-- MAP PREVIEW STRIP -->
+<div class="relative w-full h-32 rounded-xl overflow-hidden shadow-[0_2px_12px_rgba(0,0,0,0.06)] bg-surface-container-low" data-location="Seattle Downtown Waterfront to City Center" style="">
+<!-- Map Canvas & Vector Overlays -->
+<div class="absolute inset-0 bg-cover bg-center" data-alt="Stylized modern vector top-down urban roadmap view with cool light gray streets, soft mint parks, and deep navy coastlines. Sleek minimalist city grid with subtle street names under soft diffuse morning lighting." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuAOninmWOa7orvXhYTTXkfofhu_lv2t1Afjsanht35WPAjjF8iP0ccDDUzl8mmttcfIix8Zae4OAxKQNKc2FLGCJ0XOZ2xeBOeNMRA-s4yxOPuLpGdUfWDKsDZXeXNQbom4OQr7BrLBYyCjkO10iGf4NzAT-fWHGZRgqFerncoYTttjaGgHCNdjubOhSUUab4EPnvvXOVlt46Q0EG0Co1ku_shlUHN9nV1QjE4nnJuQ9mjSH0kSSLrSNg')"></div>
+<div class="absolute inset-0 bg-surface-tint/5 backdrop-contrast-105 pointer-events-none"></div>
+<!-- Active Route Line SVG Graphic -->
+<svg class="absolute inset-0 w-full h-full pointer-events-none" fill="none" preserveaspectratio="none" viewbox="0 0 340 128">
+<defs>
+<lineargradient id="routeGradient" x1="0%" x2="100%" y1="0%" y2="100%">
+<stop offset="0%" stop-color="#006b5c"></stop>
+<stop offset="60%" stop-color="#4b2ce0"></stop>
+<stop offset="100%" stop-color="#3300c0"></stop>
+</lineargradient>
+<filter height="140%" id="glow" width="140%" x="-20%" y="-20%">
+<fedropshadow dx="0" dy="2" flood-color="#4b2ce0" flood-opacity="0.4" stddeviation="3"></fedropshadow>
+</filter>
+</defs>
+<!-- Simulated Path -->
+<path d="M 40 88 C 90 85, 120 40, 180 50 C 230 60, 270 25, 300 34" filter="url(#glow)" stroke="url(#routeGradient)" stroke-linecap="round" stroke-linejoin="round" stroke-width="4.5"></path>
+<path d="M 40 88 C 90 85, 120 40, 180 50 C 230 60, 270 25, 300 34" stroke="#ffffff" stroke-dasharray="4 4" stroke-linecap="round" stroke-width="1.5"></path>
+<!-- Pickup Pin Indicator -->
+<circle cx="40" cy="88" fill="#006b5c" r="6" stroke="#ffffff" stroke-width="2"></circle>
+<!-- Destination Pin Indicator -->
+<rect fill="#4b2ce0" height="12" rx="2.5" stroke="#ffffff" stroke-width="2" width="12" x="294" y="28"></rect>
+</svg>
+<!-- Overlay Chip: Fastest route -->
+<div class="absolute top-2.5 left-2.5 flex items-center gap-1.5 px-3 py-1 rounded-full bg-surface/90 backdrop-blur-md shadow-sm">
+<span class="w-2 h-2 rounded-full bg-secondary animate-ping"></span>
+<span class="font-label-sm text-label-sm text-on-surface font-semibold tracking-wide">Fastest route via I-80 W</span>
+</div>
+<!-- Map zoom/expand control touchpoint -->
+<button aria-label="Expand route preview" class="absolute bottom-2.5 right-2.5 w-8 h-8 rounded-full bg-surface/95 backdrop-blur-md shadow-md flex items-center justify-center text-on-surface hover:bg-surface-container active:scale-90 transition-transform" type="button">
+<span class="material-symbols-outlined text-[18px]">fullscreen</span>
+</button>
+</div>
+<!-- VEHICLE OPTIONS LIST -->
+<div aria-label="Available vehicle types" class="w-full flex flex-col space-y-space-sm" id="vehicleOptionList" role="radiogroup">
+<!-- Option 1: SwiftRide Go (Selected Default) -->
+<div aria-checked="true" class="vehicle-card group relative w-full p-space-md rounded-xl transition-all duration-200 cursor-pointer select-none bg-primary-fixed/20 shadow-[0_4px_16px_rgba(75,44,224,0.14)]" data-eta="3 min" data-id="go" data-name="SwiftRide Go" data-price="$8.50" role="radio" tabindex="0">
+<!-- Visual Active Border Layer to preserve no-border rule on core elements -->
+<div class="active-indicator absolute inset-0 rounded-xl bg-gradient-to-r from-primary-container to-surface-tint p-[2px] pointer-events-none">
+<div class="w-full h-full rounded-[10px] bg-primary-fixed/20"></div>
+</div>
+<div class="relative flex items-center justify-between gap-space-sm">
+<!-- Vehicle Avatar & Icon -->
+<div class="relative shrink-0 w-12 h-12 rounded-full bg-primary-fixed flex items-center justify-center text-primary-container shadow-inner">
+<span class="material-symbols-outlined text-[28px]">directions_car</span>
+<span class="check-badge absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-secondary text-on-secondary flex items-center justify-center text-[10px] shadow-sm">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</span>
+</div>
+<!-- Details -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-title-md text-title-md text-on-surface truncate">SwiftRide Go</h3>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">
+              Fastest
+            </span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="flex items-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px] mr-0.5">person</span> 1–2
+            </span>
+<span class="text-outline-variant">•</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Affordable, everyday rides</span>
+</div>
+</div>
+<!-- ETA & Fare -->
+<div class="text-right shrink-0">
+<div class="font-title-lg text-title-lg text-primary-container font-bold">$8.50</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">3 min away</div>
+</div>
+</div>
+</div>
+<!-- Option 2: Comfort -->
+<div aria-checked="false" class="vehicle-card group relative w-full p-space-md rounded-xl transition-all duration-200 cursor-pointer select-none bg-surface-container-lowest shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-md" data-eta="5 min" data-id="comfort" data-name="Comfort" data-price="$12.90" role="radio" tabindex="0">
+<div class="active-indicator hidden absolute inset-0 rounded-xl bg-gradient-to-r from-primary-container to-surface-tint p-[2px] pointer-events-none">
+<div class="w-full h-full rounded-[10px] bg-primary-fixed/20"></div>
+</div>
+<div class="relative flex items-center justify-between gap-space-sm">
+<!-- Vehicle Avatar & Icon -->
+<div class="relative shrink-0 w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[28px]">airport_shuttle</span>
+<span class="check-badge hidden absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-secondary text-on-secondary items-center justify-center text-[10px] shadow-sm">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</span>
+</div>
+<!-- Details -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Comfort</h3>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-surface-container-high text-on-surface-variant font-label-sm text-label-sm">
+              Top Rated
+            </span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="flex items-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px] mr-0.5">person</span> 1–4
+            </span>
+<span class="text-outline-variant">•</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Newer cars, extra legroom</span>
+</div>
+</div>
+<!-- ETA & Fare -->
+<div class="text-right shrink-0">
+<div class="font-title-lg text-title-lg text-on-surface font-bold">$12.90</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">5 min away</div>
+</div>
+</div>
+</div>
+<!-- Option 3: XL Van -->
+<div aria-checked="false" class="vehicle-card group relative w-full p-space-md rounded-xl transition-all duration-200 cursor-pointer select-none bg-surface-container-lowest shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-md" data-eta="7 min" data-id="xl" data-name="XL Van" data-price="$16.40" role="radio" tabindex="0">
+<div class="active-indicator hidden absolute inset-0 rounded-xl bg-gradient-to-r from-primary-container to-surface-tint p-[2px] pointer-events-none">
+<div class="w-full h-full rounded-[10px] bg-primary-fixed/20"></div>
+</div>
+<div class="relative flex items-center justify-between gap-space-sm">
+<!-- Vehicle Avatar & Icon -->
+<div class="relative shrink-0 w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[28px]">rv_hookup</span>
+<span class="check-badge hidden absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-secondary text-on-secondary items-center justify-center text-[10px] shadow-sm">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</span>
+</div>
+<!-- Details -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-title-md text-title-md text-on-surface truncate">XL Van</h3>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="flex items-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px] mr-0.5">group</span> Up to 6
+            </span>
+<span class="text-outline-variant">•</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Spacious for groups &amp; luggage</span>
+</div>
+</div>
+<!-- ETA & Fare -->
+<div class="text-right shrink-0">
+<div class="font-title-lg text-title-lg text-on-surface font-bold">$16.40</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">7 min away</div>
+</div>
+</div>
+</div>
+<!-- Option 4: Moto -->
+<div aria-checked="false" class="vehicle-card group relative w-full p-space-md rounded-xl transition-all duration-200 cursor-pointer select-none bg-surface-container-lowest shadow-[0_2px_8px_rgba(0,0,0,0.04)] hover:shadow-md" data-eta="2 min" data-id="moto" data-name="Moto" data-price="$4.20" role="radio" tabindex="0">
+<div class="active-indicator hidden absolute inset-0 rounded-xl bg-gradient-to-r from-primary-container to-surface-tint p-[2px] pointer-events-none">
+<div class="w-full h-full rounded-[10px] bg-primary-fixed/20"></div>
+</div>
+<div class="relative flex items-center justify-between gap-space-sm">
+<!-- Vehicle Avatar & Icon -->
+<div class="relative shrink-0 w-12 h-12 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant">
+<span class="material-symbols-outlined text-[28px]">two_wheeler</span>
+<span class="check-badge hidden absolute -bottom-0.5 -right-0.5 w-4 h-4 rounded-full bg-secondary text-on-secondary items-center justify-center text-[10px] shadow-sm">
+<span class="material-symbols-outlined text-[12px] font-bold">check</span>
+</span>
+</div>
+<!-- Details -->
+<div class="flex-1 min-w-0">
+<div class="flex items-center gap-1.5">
+<h3 class="font-title-md text-title-md text-on-surface truncate">Moto</h3>
+<span class="inline-flex items-center px-1.5 py-0.5 rounded bg-secondary-fixed text-on-secondary-fixed-variant font-label-sm text-label-sm font-semibold">
+              Eco
+            </span>
+</div>
+<div class="flex items-center gap-2 mt-0.5">
+<span class="flex items-center text-on-surface-variant font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px] mr-0.5">person</span> 1 rider
+            </span>
+<span class="text-outline-variant">•</span>
+<span class="font-body-sm text-body-sm text-on-surface-variant truncate">Fastest option to beat traffic</span>
+</div>
+</div>
+<!-- ETA & Fare -->
+<div class="text-right shrink-0">
+<div class="font-title-lg text-title-lg text-on-surface font-bold">$4.20</div>
+<div class="font-label-sm text-label-sm text-on-surface-variant">2 min away</div>
+</div>
+</div>
+</div>
+</div>
+<!-- PAYMENT & PROMO ROW -->
+<div class="w-full bg-surface-container-lowest rounded-xl p-space-md shadow-sm flex items-center justify-between gap-space-sm">
+<div class="flex items-center gap-3 min-w-0">
+<!-- Mini Visa Graphic badge -->
+<div class="w-10 h-7 rounded-md bg-gradient-to-tr from-[#1a1f71] to-[#00579f] text-white flex items-center justify-center shadow-sm shrink-0 font-bold italic tracking-tighter text-[11px]">
+        VISA
+      </div>
+<div class="min-w-0">
+<div class="flex items-center gap-2">
+<span class="font-title-md text-title-md text-on-surface leading-none">Visa •••• 4242</span>
+<span class="px-1.5 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface-variant">Personal</span>
+</div>
+<div class="flex items-center gap-1 mt-1 text-secondary font-label-sm text-label-sm">
+<span class="material-symbols-outlined text-[13px]">local_offer</span>
+<span>Promo SWIFT50 active (50% applied)</span>
+</div>
+</div>
+</div>
+<button class="shrink-0 flex items-center gap-0.5 px-2.5 py-1.5 rounded-lg text-primary-container font-label-md text-label-md hover:bg-surface-container-low active:scale-95 transition-transform" type="button">
+      Change
+      <span class="material-symbols-outlined text-[16px]">chevron_right</span>
+</button>
+</div>
+<!-- CONFIRM BUTTON & DOCK -->
+<div class="pt-space-xs">
+<button class="w-full py-4 px-6 rounded-2xl bg-primary-container text-on-primary font-title-md text-title-md flex items-center justify-between shadow-[0_8px_24px_-4px_rgba(75,44,224,0.35)] hover:bg-primary active:scale-[0.98] transition-all" id="confirmRideBtn" type="button">
+<span class="flex items-center gap-2">
+<span class="material-symbols-outlined text-[20px]">bolt</span>
+<span id="confirmRideLabel">Request SwiftRide Go · $8.50</span>
+</span>
+<span class="material-symbols-outlined text-[20px] transition-transform group-hover:translate-x-1">arrow_forward</span>
+</button>
+<p class="text-center font-body-sm text-body-sm text-on-surface-variant mt-2">Guaranteed price lock • Free cancellation within 2 mins</p>
+</div>
+</div>
+<!-- Client-side Interactive Selector Script -->
+<script>
+  (function initRideSelector() {
+    const cards = document.querySelectorAll('.vehicle-card');
+    const confirmLabel = document.getElementById('confirmRideLabel');
+    const confirmBtn = document.getElementById('confirmRideBtn');
+
+    if (!cards.length || !confirmLabel) return;
+
+    cards.forEach((card) => {
+      card.addEventListener('click', () => {
+        // Deselect all cards
+        cards.forEach((c) => {
+          c.setAttribute('aria-checked', 'false');
+          c.classList.remove('bg-primary-fixed/20', 'shadow-[0_4px_16px_rgba(75,44,224,0.14)]');
+          c.classList.add('bg-surface-container-lowest', 'shadow-[0_2px_8px_rgba(0,0,0,0.04)]');
+
+          const ind = c.querySelector('.active-indicator');
+          if (ind) ind.classList.add('hidden');
+
+          const badge = c.querySelector('.check-badge');
+          if (badge) {
+            badge.classList.add('hidden');
+            badge.classList.remove('flex');
+          }
+
+          const iconContainer = c.querySelector('.rounded-full:not(.check-badge)');
+          if (iconContainer) {
+            iconContainer.classList.remove('bg-primary-fixed', 'text-primary-container', 'shadow-inner');
+            iconContainer.classList.add('bg-surface-container', 'text-on-surface-variant');
+          }
+
+          const priceText = c.querySelector('.font-title-lg');
+          if (priceText) {
+            priceText.classList.remove('text-primary-container');
+            priceText.classList.add('text-on-surface');
+          }
+        });
+
+        // Activate clicked card
+        card.setAttribute('aria-checked', 'true');
+        card.classList.remove('bg-surface-container-lowest', 'shadow-[0_2px_8px_rgba(0,0,0,0.04)]');
+        card.classList.add('bg-primary-fixed/20', 'shadow-[0_4px_16px_rgba(75,44,224,0.14)]');
+
+        const activeInd = card.querySelector('.active-indicator');
+        if (activeInd) activeInd.classList.remove('hidden');
+
+        const activeBadge = card.querySelector('.check-badge');
+        if (activeBadge) {
+          activeBadge.classList.remove('hidden');
+          activeBadge.classList.add('flex');
+        }
+
+        const activeIcon = card.querySelector('.rounded-full:not(.check-badge)');
+        if (activeIcon) {
+          activeIcon.classList.remove('bg-surface-container', 'text-on-surface-variant');
+          activeIcon.classList.add('bg-primary-fixed', 'text-primary-container', 'shadow-inner');
+        }
+
+        const activePrice = card.querySelector('.font-title-lg');
+        if (activePrice) {
+          activePrice.classList.remove('text-on-surface');
+          activePrice.classList.add('text-primary-container');
+        }
+
+        // Update CTA button label
+        const name = card.getAttribute('data-name');
+        const price = card.getAttribute('data-price');
+        confirmLabel.textContent = `Request ${name} · ${price}`;
+
+        // Haptic-like visual pulse on CTA button
+        confirmBtn.classList.add('scale-[1.01]');
+        setTimeout(() => confirmBtn.classList.remove('scale-[1.01]'), 150);
+      });
+
+      // Keyboard accessibility
+      card.addEventListener('keydown', (e) => {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          card.click();
+        }
+      });
+    });
+  })();
+</script></main></body></html>

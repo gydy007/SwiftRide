@@ -1,21 +1,27 @@
 # SwiftRide
 
-Passenger ride-hailing app for iOS and Android, built with **React Native + Expo**.
+A responsive React ride-sharing interface built with Vite and Tailwind CSS.
 
-## Run on a phone (Expo Go)
+## Features
+
+- Responsive desktop and mobile navigation
+- Ride search and destination filters
+- Nearby ride cards with driver, vehicle, timing, and pricing details
+- Interactive ride booking confirmation modal
+- Route visualization and safety highlights
+- Accessible buttons, labels, and reduced-motion support
+- Tailwind CSS utilities with custom design tokens
+
+## Run locally
 
 ```bash
 npm install
-npx expo start
+npm run dev
 ```
 
-Scan the QR code with Expo Go (Android) or the Camera app (iOS).
+## Production build
 
-## Project layout
-
-- `src/screens` — Home and upcoming ride-flow screens
-- `src/components` — reusable UI
-- `src/store` — Zustand stores
-- `src/data` — mock data (swap for a real API later)
-- `src/api` — passenger API interface + mock implementation
-- `src/theme` — design tokens
+```bash
+npm run build
+npm run preview
+```
