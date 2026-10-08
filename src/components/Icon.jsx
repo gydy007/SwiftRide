@@ -1,0 +1,37 @@
+const Icon = ({ name, size = 20 }) => {
+  const paths = {
+    arrow: <><path d="M5 12h14" /><path d="m13 6 6 6-6 6" /></>,
+    arrowLeft: <path d="m15 18-6-6 6-6" />,
+    arrowRight: <path d="m9 18 6-6-6-6" />,
+    bell: <><path d="M18 8a6 6 0 0 0-12 0c0 7-3 7-3 9h18c0-2-3-2-3-9" /><path d="M10 21h4" /></>,
+    calendar: <><rect width="18" height="18" x="3" y="4" rx="2" /><path d="M16 2v4M8 2v4M3 10h18" /></>,
+    car: <><path d="M5 17h14l-1-5-3-3H9l-3 3-1 5Z" /><path d="M7 17v2M17 17v2M6 13h12" /></>,
+    check: <path d="m5 12 4 4L19 6" />,
+    chevron: <path d="m9 18 6-6-6-6" />,
+    close: <><path d="m18 6-12 12" /><path d="m6 6 12 12" /></>,
+    heart: <path d="M20.8 4.6a5.5 5.5 0 0 0-7.8 0L12 5.6l-1-1a5.5 5.5 0 0 0-7.8 7.8l1 1L12 21l7.8-7.6 1-1a5.5 5.5 0 0 0 0-7.8Z" />,
+    home: <><path d="m3 11 9-8 9 8" /><path d="M5 10v10h14V10M9 20v-6h6v6" /></>,
+    map: <><path d="m3 6 6-3 6 3 6-3v15l-6 3-6-3-6 3V6Z" /><path d="M9 3v15M15 6v15" /></>,
+    money: <><rect width="20" height="14" x="2" y="5" rx="2" /><path d="M6 9h8M6 13h8M16 9h2M16 13h2" /></>,
+    person: <><circle cx="12" cy="8" r="4" /><path d="M4 21a8 8 0 0 1 16 0" /></>,
+    pin: <><path d="M20 10c0 5-8 12-8 12S4 15 4 10a8 8 0 1 1 16 0Z" /><circle cx="12" cy="10" r="2.5" /></>,
+    search: <><circle cx="11" cy="11" r="7" /><path d="m20 20-4-4" /></>,
+    shield: <><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" /><path d="m9 12 2 2 4-4" /></>,
+    spark: <path d="m12 3 1.5 5.5L19 10l-5.5 1.5L12 17l-1.5-5.5L5 10l5.5-1.5L12 3Z" />,
+    star: <path d="m12 2 3 6 6 .9-4.5 4.4 1.1 6.2L12 16.3 6.4 19.5l1.1-6.2L3 8.9 9 8l3-6Z" />,
+    users: <><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.9M16 3.1a4 4 0 0 1 0 7.8" /></>,
+    apartment: <><path d="M4 21V9l8-5 8 5v12" /><path d="M9 21v-6h6v6M8 10h8" /></>,
+    localMall: <><path d="M4 10h16v10H4z" /><path d="M7 10V7h10v3M7 20v-2M17 20v-2M8 14h8" /></>,
+    schedule: <><circle cx="12" cy="12" r="9" /><path d="M12 7v5l3 2" /></>,
+    wallet: <><path d="M4 7h14a2 2 0 0 1 2 2v9H4a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h12" /><path d="M16 13h6v4h-6a2 2 0 0 1 0-4Z" /></>,
+    directionsCar: <><path d="M5 17h14l-1-5-3-3H9l-3 3-1 5Z" /><path d="M7 17v2M17 17v2M6 13h12" /></>,
+    airlineSeat: <><path d="M7 11V5a2 2 0 0 1 4 0v6M11 11V7a2 2 0 0 1 4 0v4M15 11V8a2 2 0 0 1 4 0v7M5 13v7M19 13v7" /><path d="M3 13h18" /></>,
+    airportShuttle: <><path d="M5 17h14l-1-5-3-3H9l-3 3-1 5Z" /><path d="M7 17v2M17 17v2M6 13h12" /></>,
+    twoWheeler: <><circle cx="6" cy="16" r="4" /><circle cx="18" cy="16" r="4" /><path d="M6 16l5-6h4l3 6M11 10v6M14 10h2" /></>,
+    package2: <><path d="m4 7 8-4 8 4-8 4-8-4Z" /><path d="m4 7 8 4 8-4v10l-8 4-8-4V7Z" /><path d="M12 11v10" /></>,
+  }
+
+  return <svg className="icon" width={size} height={size} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round" aria-hidden="true">{paths[name]}</svg>
+}
+
+export default Icon
