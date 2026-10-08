@@ -1,6 +1,5 @@
 import { useState } from 'react'
 import Icon from '../components/Icon'
-import PageHeader from '../components/PageHeader'
 import RideCard from '../components/RideCard'
 import '../components/App.css'
 
@@ -16,7 +15,11 @@ const ChooseRide = ({ onBack, onConfirm }) => {
 
   return (
     <div className="choose-page swiftride-app">
-      <PageHeader title="Choose a ride" onBack={onBack} onClose={onBack} />
+      <header className="choose-header">
+        <button className="page-back-button" type="button" onClick={onBack} aria-label="Back to home"><Icon name="arrowLeft" size={21} /></button>
+        <div><span>Choose a ride</span><h1>Available drivers</h1></div>
+        <span className="choose-header__spacer" aria-hidden="true" />
+      </header>
       <main className="choose-content">
         <section className="route-summary">
           <div className="route-summary__label"><Icon name="pin" size={18} /><span><small>Your route</small><strong>742 Evergreen Terrace <Icon name="arrow" size={14} /> City Center Mall</strong></span></div>

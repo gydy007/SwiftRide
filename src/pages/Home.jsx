@@ -1,7 +1,8 @@
-import { useRef, useState } from 'react'
+import { useEffect, useRef, useState } from 'react'
 import BookingModal from '../components/BookingModal'
 import Icon from '../components/Icon'
 import RideCard from '../components/RideCard'
+import { getCurrentLocation, searchPlaces } from '../services/openStreetMap'
 import '../components/App.css'
 
 const rides = [
@@ -18,56 +19,136 @@ const services = [
   { name: 'Delivery', icon: 'package_2', time: 'Instant' },
 ]
 
-const recentPlaces = [
-  { name: 'Home', address: '12 Oak Street, Westside', icon: 'home', color: 'primary' },
-  { name: 'Work', address: 'Downtown Tech Hub, Tower 2', icon: 'apartment', color: 'secondary' },
-  { name: 'Mall', address: '88 Market St, Central Plaza', icon: 'localMall', color: 'tertiary' },
+const initialPlaces = [
+  { name: 'Home', address: '12 Oak Street, Westside', icon: 'home', color: 'primary', location: { lat: 7.3972, lng: 5.2582 } },
+  { name: 'Work', address: 'Downtown Tech Hub, Tower 2', icon: 'apartment', color: 'secondary', location: { lat: 7.4015, lng: 5.2610 } },
+  { name: 'Mall', address: '88 Market St, Central Plaza', icon: 'localMall', color: 'tertiary', location: { lat: 7.3994, lng: 5.2664 } },
 ]
 
-const navItems = [
-  { label: 'Home', icon: 'home' },
-  { label: 'Activity', icon: 'schedule' },
-  { label: 'Wallet', icon: 'wallet' },
-  { label: 'Profile', icon: 'person' },
-]
+const fallbackLocation = { lat: 7.3972, lng: 5.2582 }
+const fallbackDestination = { lat: 7.3994, lng: 5.2664 }
+const recentPlacesStorageKey = 'swiftride-recent-places'
 
-const Home = ({ onChooseRide, bookedRide, onCloseBooking }) => {
+const loadRecentPlaces = () => {
+  try {
+    const storedPlaces = JSON.parse(window.localStorage.getItem(recentPlacesStorageKey) || '[]')
+    return Array.isArray(storedPlaces) && storedPlaces.length ? storedPlaces : initialPlaces
+  } catch {
+    return initialPlaces
+  }
+}
+
+const Home = ({ onChooseRide, onOpenTrip, onPlanRide, onOpenWallet, bookedRide, onCloseBooking }) => {
   const [activeService, setActiveService] = useState('Ride')
-  const [activeNav, setActiveNav] = useState('Home')
+  const [pickup, setPickup] = useState('742 Evergreen Terrace')
+  const [pickupLocation, setPickupLocation] = useState(fallbackLocation)
   const [destination, setDestination] = useState('')
+  const [destinationLocation, setDestinationLocation] = useState(fallbackDestination)
+  const [currentLocation, setCurrentLocation] = useState(fallbackLocation)
+  const [locationStatus, setLocationStatus] = useState('Finding your location…')
+  const [pickupSuggestions, setPickupSuggestions] = useState([])
+  const [pickupSearching, setPickupSearching] = useState(false)
+  const [pickupError, setPickupError] = useState('')
+  const [recentPlaces, setRecentPlaces] = useState(loadRecentPlaces)
   const [promoClaimed, setPromoClaimed] = useState(false)
   const [savedRides, setSavedRides] = useState([])
   const ridesSectionRef = useRef(null)
 
+  useEffect(() => {
+    let active = true
+
+    getCurrentLocation()
+      .then((location) => {
+        if (!active) return
+        setCurrentLocation(location)
+        setLocationStatus('Location enabled')
+      })
+      .catch(() => {
+        if (!active) return
+        setLocationStatus('Using Ado Ekiti location')
+      })
+
+    return () => { active = false }
+  }, [])
+
+  useEffect(() => {
+    const query = pickup.trim()
+    if (query.length < 3) {
+      setPickupSuggestions([])
+      setPickupError('')
+      return undefined
+    }
+
+    const controller = new AbortController()
+    setPickupSearching(true)
+    setPickupError('')
+
+    const timeout = window.setTimeout(() => controller.abort(), 8000)
+    searchPlaces(query, { location: currentLocation, signal: controller.signal })
+      .then((places) => {
+        setPickupSuggestions(places.slice(0, 5))
+      })
+      .catch((error) => {
+        if (error.name !== 'AbortError') setPickupError(error.message)
+      })
+      .finally(() => {
+        window.clearTimeout(timeout)
+        setPickupSearching(false)
+      })
+
+    return () => {
+      controller.abort()
+      window.clearTimeout(timeout)
+    }
+  }, [pickup, currentLocation])
+
+  const addRecentPlace = (place) => {
+    const entry = {
+      name: place.name,
+      address: place.address,
+      icon: 'pin',
+      color: 'primary',
+      location: place.location,
+    }
+
+    setRecentPlaces((places) => {
+      const nextPlaces = [entry, ...places.filter((item) => item.address !== place.address)].slice(0, 5)
+      window.localStorage.setItem(recentPlacesStorageKey, JSON.stringify(nextPlaces))
+      return nextPlaces
+    })
+  }
+
+  const selectPickup = (place) => {
+    setPickup(place.name)
+    setPickupLocation(place.location)
+    setPickupSuggestions([])
+    addRecentPlace(place)
+  }
+
   const selectDestination = (place) => {
     setDestination(place.address)
+    setDestinationLocation(place.location)
+    addRecentPlace(place)
     ridesSectionRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
   }
 
+  const saveTypedLocations = () => {
+    if (pickup.trim() && pickup !== '742 Evergreen Terrace') {
+      addRecentPlace({ name: pickup, address: pickup, location: pickupLocation })
+    }
+    if (destination.trim()) {
+      addRecentPlace({ name: destination, address: destination, location: destinationLocation })
+    }
+  }
+
+  const mapUrl = new URL('https://www.openstreetmap.org/export/embed.html')
+  mapUrl.searchParams.set('layer', 'mapnik')
+  mapUrl.searchParams.set('marker', `${currentLocation.lat},${currentLocation.lng}`)
+  mapUrl.searchParams.append('marker', `${destinationLocation.lat},${destinationLocation.lng}`)
+  mapUrl.searchParams.set('bbox', `${Math.max(5.248, Math.min(currentLocation.lng, destinationLocation.lng) - 0.008)},${Math.max(7.387, Math.min(currentLocation.lat, destinationLocation.lat) - 0.008)},${Math.min(5.288, Math.max(currentLocation.lng, destinationLocation.lng) + 0.008)},${Math.min(7.407, Math.max(currentLocation.lat, destinationLocation.lat) + 0.008)}`)
+
   return (
     <div className="swiftride-app">
-      <header className="app-header">
-        <div className="app-header__brand">
-          <img src="/Assets/swiftride_logo/logo.png" alt="SwiftRide" className="app-logo" />
-          <span>SwiftRide</span>
-        </div>
-        <nav className="desktop-nav" aria-label="Primary navigation">
-          {navItems.map((item) => (
-            <button key={item.label} type="button" className={activeNav === item.label ? 'desktop-nav__item active' : 'desktop-nav__item'} onClick={() => setActiveNav(item.label)} aria-current={activeNav === item.label ? 'page' : undefined}>
-              <Icon name={item.icon} size={17} />
-              <span>{item.label}</span>
-            </button>
-          ))}
-        </nav>
-        <div className="app-header__actions">
-          <button className="icon-button notification-button" type="button" aria-label="Notifications">
-            <Icon name="bell" size={22} />
-            <span className="notification-dot" />
-          </button>
-          <button className="profile-button" type="button" aria-label="Open profile"><span>AR</span></button>
-        </div>
-      </header>
-
       <main className="home-content">
         <section className="welcome-section" aria-labelledby="welcome-title">
           <div>
@@ -80,22 +161,37 @@ const Home = ({ onChooseRide, bookedRide, onCloseBooking }) => {
 
         <section className="search-card" aria-label="Find a ride">
           <div className="search-card__heading"><h2>Where to?</h2><span>1 of 2</span></div>
-          <button className="search-field" type="button" onClick={onChooseRide}>
-            <span className="search-field__icon search-field__icon--pickup"><Icon name="pin" size={20} /></span>
-            <span className="search-field__copy"><small>Pickup location</small><strong>742 Evergreen Terrace</strong></span>
-            <Icon name="chevron" size={18} />
-          </button>
-          <button className="search-field search-field--destination" type="button" onClick={onChooseRide}>
+          <div className="search-field-wrap">
+            <label className="search-field">
+              <span className="search-field__icon search-field__icon--pickup"><Icon name="pin" size={20} /></span>
+              <span className="search-field__copy"><small>Pickup location</small><input value={pickup} onChange={(event) => setPickup(event.target.value)} placeholder="Enter pickup location" aria-label="Pickup location" autoComplete="off" /></span>
+              <Icon name="chevron" size={18} />
+            </label>
+            {pickup.trim().length >= 3 && (
+              <div className="place-search-results place-search-results--home" role="listbox" aria-label="Pickup suggestions">
+                {pickupSearching && <div className="place-search-loading"><span /> Searching places…</div>}
+                {pickupError && <div className="place-search-error">{pickupError}</div>}
+                {!pickupSearching && pickupSuggestions.length === 0 && !pickupError && <div className="place-search-empty">No matching places found.</div>}
+                {pickupSuggestions.map((place) => (
+                  <button key={place.id} type="button" role="option" className="place-search-result" onMouseDown={() => selectPickup(place)}>
+                    <span className="place-search-result__icon"><Icon name="pin" size={17} /></span>
+                    <span><strong>{place.name}</strong><small>{place.address}</small></span>
+                  </button>
+                ))}
+              </div>
+            )}
+          </div>
+          <label className="search-field search-field--destination">
             <span className="search-field__icon search-field__icon--destination"><Icon name="pin" size={20} /></span>
-            <span className="search-field__copy"><small>Destination</small><strong>{destination || 'Where are you headed?'}</strong></span>
+            <span className="search-field__copy"><small>Destination</small><input value={destination} onChange={(event) => setDestination(event.target.value)} placeholder="Type your destination" aria-label="Destination" /></span>
             <Icon name="chevron" size={18} />
-          </button>
+          </label>
           <div className="search-options">
             <div><Icon name="calendar" size={17} /><span><small>When</small><strong>Today, 6:30 PM</strong></span></div>
             <div><Icon name="users" size={17} /><span><small>Seats</small><strong>1 passenger</strong></span></div>
             <div><Icon name="money" size={17} /><span><small>Budget</small><strong>$25 max</strong></span></div>
           </div>
-          <button className="search-button" type="button" onClick={onChooseRide}><Icon name="search" size={20} /> Find your ride <Icon name="arrow" size={20} /></button>
+          <button className="search-button" type="button" onClick={() => { saveTypedLocations(); onPlanRide() }} disabled={!pickup.trim() || !destination.trim()}><Icon name="search" size={20} /> Plan your ride <Icon name="arrow" size={20} /></button>
         </section>
 
         <section className="services-section" aria-labelledby="services-title">
@@ -117,17 +213,17 @@ const Home = ({ onChooseRide, bookedRide, onCloseBooking }) => {
         <section className="recent-section" aria-labelledby="recent-title">
           <div className="section-heading section-heading--compact">
             <div><span className="section-kicker">Quick access</span><h2 id="recent-title">Recent places</h2></div>
-            <span className="recent-count">3 frequent</span>
+            <span className="recent-count">{recentPlaces.length} recent</span>
           </div>
           <div className="recent-list">
             {recentPlaces.map((place) => {
               const isSaved = savedRides.includes(place.name)
               return (
-                <div className="recent-item" key={place.name}>
+                <div className="recent-item" key={`${place.name}-${place.address}`}>
                   <button className="recent-item__main" type="button" onClick={() => selectDestination(place)}>
                     <span className={`recent-icon recent-icon--${place.color}`}><Icon name={place.icon} size={20} /></span>
                     <span className="recent-item__copy"><strong>{place.name}</strong><small>{place.address}</small></span>
-                    <span className="recent-item__time">{place.name === 'Home' ? '14 min' : place.name === 'Work' ? '22 min' : '9 min'}</span>
+                    <span className="recent-item__time">{place.name === 'Home' ? '14 min' : place.name === 'Work' ? '22 min' : place.name === 'Mall' ? '9 min' : 'Recent'}</span>
                     <Icon name="chevron" size={18} />
                   </button>
                   <button className={`recent-save ${isSaved ? 'is-saved' : ''}`} type="button" aria-label={`${isSaved ? 'Remove' : 'Save'} ${place.name}`} aria-pressed={isSaved} onClick={() => setSavedRides((saved) => saved.includes(place.name) ? saved.filter((item) => item !== place.name) : [...saved, place.name])}>
@@ -160,25 +256,26 @@ const Home = ({ onChooseRide, bookedRide, onCloseBooking }) => {
             <span className="driver-count"><span /> 12 drivers nearby</span>
           </div>
           <div className="map-card">
-            <div className="map-grid" />
-            <svg className="map-route" viewBox="0 0 420 150" preserveAspectRatio="none" aria-hidden="true"><path d="M-20 128 C65 118 85 28 150 44 S260 125 326 82 S394 10 450 18" /><path className="map-route--dash" d="M-20 128 C65 118 85 28 150 44 S260 125 326 82 S394 10 450 18" /></svg>
-            <div className="map-pin map-pin--start"><Icon name="pin" size={18} /></div>
-            <div className="map-pin map-pin--end"><Icon name="pin" size={18} /></div>
-            <div className="map-car"><Icon name="car" size={22} /></div>
-            <div className="map-card__label"><span>Fastest pickup</span><strong>2 mins away</strong></div>
-            <button className="map-expand" type="button" aria-label="Open live map"><Icon name="map" size={19} /></button>
+            <iframe
+              className="map-frame"
+              title="Live map showing your location and destination"
+              src={mapUrl.toString()}
+              loading="lazy"
+              referrerPolicy="no-referrer-when-downgrade"
+            />
+            <div className="map-overlay map-overlay--location">
+              <span className="map-overlay__icon"><Icon name="pin" size={15} /></span>
+              <span><small>Your location</small><strong>{locationStatus}</strong></span>
+            </div>
+            <div className="map-overlay map-overlay--destination">
+              <span className="map-overlay__icon"><Icon name="location" size={15} /></span>
+              <span><small>Destination</small><strong>{destination || 'Ado Ekiti route'}</strong></span>
+            </div>
+            <a className="map-expand" href={`https://www.openstreetmap.org/?mlat=${currentLocation.lat}&mlon=${currentLocation.lng}#map=14/${currentLocation.lat}/${currentLocation.lng}`} target="_blank" rel="noreferrer" aria-label="Open live map"><Icon name="map" size={19} /></a>
+            <div className="map-loading" aria-hidden="true" />
           </div>
         </section>
       </main>
-
-      <nav className="bottom-nav" aria-label="Primary navigation">
-        {navItems.map((item) => (
-          <button key={item.label} type="button" className={activeNav === item.label ? 'bottom-nav__item active' : 'bottom-nav__item'} onClick={() => setActiveNav(item.label)} aria-current={activeNav === item.label ? 'page' : undefined}>
-            <Icon name={item.icon} size={24} />
-            <span>{item.label}</span>
-          </button>
-        ))}
-      </nav>
 
       {bookedRide && <BookingModal ride={bookedRide} onClose={onCloseBooking} />}
     </div>
